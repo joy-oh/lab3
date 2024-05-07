@@ -105,7 +105,33 @@ int main(int argc, char *argv[])
    close(fd);
 
 // standard i/o
-    int fd = fopen(filename, "r");
+   FILE *fp;
+   int c;
+
+   fp = fopen(filename, "r");
+
+   if (fp == NULL) {
+      cerr << "error opening " << filename << endl;
+   }
+   if (bytes == 1) {
+      do {
+         c = fgetc(fp);
+         if (feof(fp)) {
+            break;
+         }
+         startTimer();
+         while(fread(buf,1, bytes, fp) > 0);
+         stopTimer("standard fread's elapsed time");
+
+      }
+      while(1);
+   }
+   else {
+      startTimer();
+      while(fread(buf,1, bytes, fp) > 0);
+      stopTimer("standard fread");
+   }
+   fclose(fp);
 
 // write the same functionality as in linux i/o
 
