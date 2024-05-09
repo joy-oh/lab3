@@ -1,6 +1,6 @@
 // -------------------------------------------------lab3.cpp-------------------------------------------------------
 
-// Programmer Name Course Section Number : Joy Oh, Sahithi Chimakurthi, CSS-503 A
+// Programmer Name Course Section Number : Joy hyunjung Oh, Sahithi Chimakurthi, CSS-503 A
 
 // Creation Date : 05/09/2024
 
