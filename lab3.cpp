@@ -11,7 +11,6 @@
 //
 // ---------------------------------------------------------------------------------------------------------------
 
-
 #include <fcntl.h>
 #include <unistd.h>
 #include <sys/types.h>
@@ -55,7 +54,7 @@ int main(int argc, char *argv[])
         cerr << "usage: lab3 filename bytes" << endl;
         return -1;
     }
-    
+
     int bytes = atoi(argv[2]);
     
     if (bytes < 1)
@@ -64,15 +63,15 @@ int main(int argc, char *argv[])
         cerr << "where bytes > 0" << endl;
         return -1;
     }
-    
+
     char *filename = argv[1];
     char *buf = new char[bytes];
-    
+
     // linux i/o
     // Reading a file using Linux I/O functions.
     // The entire file is read using the read system call, and the elapsed time is measured.
     int fd = open(filename, O_RDONLY);
-
+    
     if (fd == -1)
     {
         cerr << filename << " not found" << endl;
@@ -82,12 +81,12 @@ int main(int argc, char *argv[])
     startTimer();
     while (read(fd, buf, bytes) > 0);
     stopTimer("Unix read");
-
+    
     close(fd);
 
-    // standard i/o
     // write the same functionality as in linux i/o
     // but use fopen(), fgetc(), fread(), and fclose( )
+    // standard i/o
     // Reading a file using C standard I/O functions.
     // The entire file is read using either fgetc or fread, depending on the value of bytes, 
     // and the elapsed time is measured.
@@ -95,29 +94,26 @@ int main(int argc, char *argv[])
     int c;
 
     fp = fopen(filename, "r");
-    
-    if(fp == NULL) 
+
+    if (fp == NULL) 
     {
         cerr << "error opening " << filename << endl;
+        return -1;
     }
 
     // use fgetc() if bytes == 1
-    if(bytes == 1) 
+    if (bytes == 1) 
     {
-        do
+        startTimer();
+        while(true) 
         {
             c = fgetc(fp);
-            if(feof(fp)) 
+            if(c == EOF) 
             {
                 break;
             }
-            
-            startTimer();
-            while(c);
-            stopTimer("standard fread's elapsed time");
-        }
-        
-        while(1);
+        } 
+        stopTimer("standard fgetc's elapsed time");
     }
     else 
     {
@@ -126,7 +122,7 @@ int main(int argc, char *argv[])
         stopTimer("standard fread");
     }
     fclose(fp);
-    
+
     delete[] buf;
     return 0;
 }
