@@ -102,22 +102,31 @@ int main(int argc, char *argv[])
     }
 
     // use fgetc() if bytes == 1
+    // if(bytes == 1) 
+    // {
+    //     do
+    //     {
+    //         c = fgetc(fp);
+    //         if(feof(fp)) 
+    //         {
+    //             break;
+    //         }
+            
+    //         startTimer();
+    //         while(c);
+    //         stopTimer("standard fread's elapsed time");
+    //     }
+        
+    //     while(1);
+    // }
     if(bytes == 1) 
     {
-        do
-        {
-            c = fgetc(fp);
-            if(feof(fp)) 
-            {
-                break;
-            }
-            
-            startTimer();
-            while(c);
-            stopTimer("standard fread's elapsed time");
-        }
+        startTimer();
         
-        while(1);
+        while(c = fgetc(fp) != EOF)
+        {}
+        
+        stopTimer("standard fread's elapsed time");
     }
     else 
     {
