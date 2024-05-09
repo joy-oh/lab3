@@ -120,7 +120,7 @@ int main(int argc, char *argv[])
             break;
          }
          startTimer();
-         while(fread(buf,1, bytes, fp) > 0);
+         while(c);
          stopTimer("standard fread's elapsed time");
 
       }
