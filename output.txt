@@ -1,0 +1,13 @@
+hyunjungoh@joymbp lab3 % ./a.out hamlet.txt 512
+Unix read's elapsed time	= 3205
+standard fread's elapsed time	= 94
+hyunjungoh@joymbp lab3 % ./a.out hamlet.txt 1024
+Unix read's elapsed time	= 250
+standard fread's elapsed time	= 174
+hyunjungoh@joymbp lab3 % ./a.out hamlet.txt 2048
+Unix read's elapsed time	= 115
+standard fread's elapsed time	= 76
+hyunjungoh@joymbp lab3 % ./a.out hamlet.txt 4096
+Unix read's elapsed time	= 66
+standard fread's elapsed time	= 157
+hyunjungoh@joymbp lab3 % 

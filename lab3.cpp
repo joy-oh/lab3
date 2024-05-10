@@ -6,7 +6,7 @@
 
 // Date of Last Modification : 05/09/2024
 
-// Purpose : Implementing a program that reads a given file using Linux read() system call as well as 
+// Purpose : Implementing a program that reads a given file using Linux read() system call as well as
 //           C/C++ fgetc()/fread() functions.
 //
 // ---------------------------------------------------------------------------------------------------------------
@@ -40,7 +40,7 @@ void startTimer()
 void stopTimer(const char *str)
 {
     gettimeofday(&end2, NULL);
-    
+
     cout << str << "'s elapsed time\t= " << ((end2.tv_sec - start.tv_sec) * 1000000 + (end2.tv_usec - start.tv_usec)) << endl;
 }
 
@@ -55,19 +55,19 @@ int main(int argc, char *argv[])
         cerr << "usage: lab3 filename bytes" << endl;
         return -1;
     }
-    
+
     int bytes = atoi(argv[2]);
-    
+
     if (bytes < 1)
     {
         cerr << "usage: lab3 filename bytes" << endl;
         cerr << "where bytes > 0" << endl;
         return -1;
     }
-    
+
     char *filename = argv[1];
     char *buf = new char[bytes];
-    
+
     // linux i/o
     // Reading a file using Linux I/O functions.
     // The entire file is read using the read system call, and the elapsed time is measured.
@@ -78,7 +78,7 @@ int main(int argc, char *argv[])
         cerr << filename << " not found" << endl;
         return -1;
     }
-    
+
     startTimer();
     while (read(fd, buf, bytes) > 0);
     stopTimer("Unix read");
@@ -89,53 +89,35 @@ int main(int argc, char *argv[])
     // write the same functionality as in linux i/o
     // but use fopen(), fgetc(), fread(), and fclose( )
     // Reading a file using C standard I/O functions.
-    // The entire file is read using either fgetc or fread, depending on the value of bytes, 
+    // The entire file is read using either fgetc or fread, depending on the value of bytes,
     // and the elapsed time is measured.
     FILE *fp;
     int c;
 
     fp = fopen(filename, "r");
-    
-    if(fp == NULL) 
+
+    if(fp == NULL)
     {
         cerr << "error opening " << filename << endl;
     }
 
-    // use fgetc() if bytes == 1
-    // if(bytes == 1) 
-    // {
-    //     do
-    //     {
-    //         c = fgetc(fp);
-    //         if(feof(fp)) 
-    //         {
-    //             break;
-    //         }
-            
-    //         startTimer();
-    //         while(c);
-    //         stopTimer("standard fread's elapsed time");
-    //     }
-        
-    //     while(1);
-    // }
-    if(bytes == 1) 
+    if(bytes == 1)
     {
         startTimer();
-        
-        while(c = fgetc(fp) != EOF)
+
+        while((c = fgetc(fp)) != EOF)
         {}
-        
+
         stopTimer("standard fread's elapsed time");
     }
-    else 
+    else
     {
         startTimer();
         while(fread(buf,1, bytes, fp) > 0);
         stopTimer("standard fread");
     }
     fclose(fp);
-    
+
     delete[] buf;
     return 0;
 }
